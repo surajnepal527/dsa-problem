@@ -7,13 +7,6 @@ class Solution(object):
         :type n: int
         :rtype: None Do not return anything, modify nums1 in-place instead.
         """
-        if len(nums1) == 0 or n == 0:
-            return nums1
-        if len(nums1) == len(nums2):
-            for i in range(0 , len(nums1)):
-                nums1[i] = nums2[i]
-            return nums1
-        
         i = m - 1
         j = n - 1
         k = len(nums1) - 1
