@@ -10,8 +10,8 @@ class Solution(object):
         for i in range (0, len(citations)):
             if citations[i] >= i + 1:
                 h_index = i + 1
-            #if i + 1 < len(citations) and citations[i] == citations[i + 1]:
-              #  break
+            else:
+                break
         return h_index
     
     def sort(self, start, end, A):
