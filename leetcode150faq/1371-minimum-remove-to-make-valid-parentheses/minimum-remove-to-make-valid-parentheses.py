@@ -38,10 +38,11 @@ class Solution(object):
                         nans.append(ans[i])
                     else:
                         continue
-            fans = []
-            for i in range(len(nans)-1, -1, -1):
-                fans.append(nans[i])
+            return ''.join(reversed(nans))
+            # fans = []
+            # for i in range(len(nans)-1, -1, -1):
+            #     fans.append(nans[i])
             
-            return ''.join(fans)
+            # return ''.join(fans)
 
 
