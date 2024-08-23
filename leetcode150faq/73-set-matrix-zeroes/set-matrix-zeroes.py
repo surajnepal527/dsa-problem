@@ -4,38 +4,49 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: None Do not return anything, modify matrix in-place instead.
         """
+        #First col matrix matrix[0][col]
+        #First row matrix matrix[row][0] 
         rows = len(matrix)
         cols = len(matrix[0])
-        false_matrix = [[False] * cols for _ in range(rows)]
-        for row in range (rows):
-            for col in range(cols):
-                if matrix[row][col] == 0:
-                    false_matrix[row][col] = True
-        
+
+                #check for row 0
+        setRow = False
         for row in range(rows):
+            if matrix[row][0] == 0:
+                setRow = True
+                continue
+
+        setCol = False
+        for col in range(cols):
+            if matrix[0][col] == 0:
+                setCol = True
+                continue
+
+        for row in range(1, rows):
+            for col in range(1, cols):
+                if matrix[row][col] == 0:
+                    matrix[0][col] = matrix[row][0] = 0
+
+
+        for row in range(1, rows):
+            for col in range(1, cols):
+                if matrix[row][0] == 0 or matrix[0][col] == 0:
+                    matrix[row][col] = 0
+        
+
+        
+        if setRow == True:
+            for row in range(rows):
+                matrix[row][0] = 0
+        
+        if setCol == True:
             for col in range(cols):
-                if false_matrix[row][col] == True:
-                    false_matrix[row][col] == False
-                    self.setRowColZeros(matrix, row, col)
+                matrix[0][col] = 0
         
         return matrix
 
 
-    def setRowColZeros(self, matrix, row, col):
-        #set top to zero
-        initTop = row
-        initBottom = row
-        initLeft = col
-        initRight = col
-        while initTop >= 0:
-            matrix[initTop][col] = 0
-            initTop -= 1
-        while initBottom < len(matrix):
-            matrix[initBottom][col] = 0
-            initBottom += 1
-        while initLeft >= 0:
-            matrix[row][initLeft] = 0
-            initLeft -= 1
-        while initRight < len(matrix[0]):
-            matrix[row][initRight] = 0
-            initRight += 1
+
+
+
+        
