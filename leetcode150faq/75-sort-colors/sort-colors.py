@@ -4,29 +4,22 @@ class Solution(object):
         :type nums: List[int]
         :rtype: None Do not return anything, modify nums in-place instead.
         """
-        my_map = {
-            0:0,
-            1:0,
-            2:0
-        }
-        for i in range(len(nums)):
-            my_map[nums[i]] += 1
-        k = 0
-        count_zero = my_map[0]
-        for i in range(count_zero):
-            nums[k] = 0
-            k += 1
-        count_one = my_map[1]
-        for i in range(count_one):
-            nums[k] = 1
-            k += 1
-        count_two = my_map[2]
-        for i in range(count_two):
-            nums[k] = 2
-            k += 1
-        
+        low=mid=0
+        high = len(nums) - 1
 
-            
-
-
-        
+        while mid <= high:
+            if nums[mid] == 0:
+                self.swap(nums,low, mid)
+                mid += 1
+                low += 1
+            elif nums[mid] == 2:
+                self.swap(nums, mid, high)
+                high -= 1
+            else:
+                mid += 1
+                
+    
+    def swap(self, nums, start, end):
+        tmp = nums[end]
+        nums[end] = nums[start]
+        nums[start] = tmp
