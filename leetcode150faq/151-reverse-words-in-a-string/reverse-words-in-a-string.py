@@ -4,26 +4,12 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        n = len(s)
-        result = ""
-        i = n - 1
-        while i >= 0:
-
-            while i>=0 and s[i] == ' ':
-                i -= 1
-            if i < 0:
-                break
-            end = i
-            while i>= 0 and s[i] != ' ':
-                i -= 1
-            start = i + 1
-
-            word = s[start: end+1]
-
-            if result:
-                result += " " + word
-            else:
-                result = word
-            
-        return result
+        words = s.split()
+        start = 0
+        end = len(words) - 1
+        while start < end:
+            words[start], words[end] = words[end], words[start]
+            start += 1
+            end -=1
         
+        return " ".join(words)
