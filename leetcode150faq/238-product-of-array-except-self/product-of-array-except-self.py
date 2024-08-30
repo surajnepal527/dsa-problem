@@ -4,18 +4,23 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        output = [0]*len(nums)
+        ans = []
         prefix = 1
-        postfix = 1
-        output[0] = 1
-        for i in range(1, len(nums), 1):
-            output[i] = prefix * nums[i - 1]
-            prefix = output[i]
-           
-        
+        for i in range(len(nums)):
+            if i == 0:
+                ans.append(prefix)
+            else:
+                prefix *= nums[i-1]
+                ans.append(prefix)
+
+        suffix = 1
         for j in range(len(nums)-1, -1, -1):
-            output[j]  *= postfix
-            postfix *= nums[j]
+            if j == len(nums) - 1:
+                ans[j] = ans[j] * suffix
+            else:
+                suffix *= nums[j+1]
+                ans[j] *= suffix
         
-        return output
-            
+        return ans
+
+        
