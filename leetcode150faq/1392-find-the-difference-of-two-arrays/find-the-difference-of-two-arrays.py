@@ -5,14 +5,10 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: List[List[int]]
         """
-        set_num1 = set()
-        set_num2 = set()
+        set_num1 = set(nums1)
+        set_num2 = set(nums2)
         ans_num1 = set()
         ans_num2 = set()
-        for num1 in nums1:
-            set_num1.add(num1)
-        for num2 in nums2:
-            set_num2.add(num2)
 
         for num1 in nums1:
             if num1 not in set_num2:
