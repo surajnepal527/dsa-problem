@@ -5,19 +5,21 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
-        if not s:
+        if len(t) == 0 and len(s) == 0:
             return True
-        if not t:
+        if len(t) == 0:
             return False
+        if len(s) == 0:
+            return True
 
-        i = 0
-        m = 0
-        while m < len(t):
-            if t[m] == s[i]:
-                i += 1
-            if i == len(s):
-                return True
-            m += 1
+        cur_idx = 0
+        for i in range(len(t)):
+            if cur_idx < len(s) and s[cur_idx] == t[i]:
+                cur_idx += 1
         
+        if cur_idx == len(s):
+            return True
+
         return False
-            
+
+        
