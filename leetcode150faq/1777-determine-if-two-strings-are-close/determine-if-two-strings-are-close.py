@@ -17,20 +17,22 @@ class Solution(object):
         for w2 in word2:
             index = ord(w2) - ord('a')
             freq_word2[index]  += 1
-        
-        freq_map = {}
-        for f1 in freq_word1:
-            freq_map[f1] = freq_map.get(f1, 0) + 1
 
-        for f2 in freq_word2:
-            if f2 not in freq_map:
-                return False
-            else: 
-                freq_map[f2] = freq_map.get(f2) - 1
+        return sorted(freq_word1) == sorted(freq_word2)
         
-        for value in freq_map.values():
-            if value > 0:
-                return False
+        # freq_map = {}
+        # for f1 in freq_word1:
+        #     freq_map[f1] = freq_map.get(f1, 0) + 1
+
+        # for f2 in freq_word2:
+        #     if f2 not in freq_map:
+        #         return False
+        #     else: 
+        #         freq_map[f2] = freq_map.get(f2) - 1
         
-        return True
+        # for value in freq_map.values():
+        #     if value > 0:
+        #         return False
+        
+        # return True
         
