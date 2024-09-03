@@ -4,22 +4,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: None Do not return anything, modify nums in-place instead.
         """
-        low=mid=0
-        high = len(nums) - 1
-
-        while mid <= high:
-            if nums[mid] == 0:
-                self.swap(nums,low, mid)
-                mid += 1
-                low += 1
-            elif nums[mid] == 2:
-                self.swap(nums, mid, high)
-                high -= 1
+        left = 0
+        right = len(nums) - 1
+        cur = 0
+        while cur <= right:
+            if nums[cur] == 0:
+                nums[cur], nums[left] = nums[left], nums[cur]                
+                left += 1
+                cur += 1
+            elif nums[cur] == 2:
+                nums[cur],nums[right] =nums[right], nums[cur]
+                right -= 1
             else:
-                mid += 1
-                
-    
-    def swap(self, nums, start, end):
-        tmp = nums[end]
-        nums[end] = nums[start]
-        nums[start] = tmp
+                cur += 1
+
+        
