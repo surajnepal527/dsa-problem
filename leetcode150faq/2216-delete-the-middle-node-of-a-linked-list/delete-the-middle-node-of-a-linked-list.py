@@ -9,30 +9,24 @@ class Solution(object):
         :type head: Optional[ListNode]
         :rtype: Optional[ListNode]
         """
-        #let take care of edge cases
-        if head is None:
+        #solution 2 : using fast slow two pointer approach
+        #by the time fast reach to end slow reaches to middle
+        #we will keep track of the slow pointer previous using prev node of slow
+
+        #Edge case
+        while head is None or head.next is None:
             return None
-
-        #Lets find the length of the Linked List in first iteration
-        temp = head
-        length = 0
-        while temp is not None:
-            length += 1
-            temp = temp.next
         
-        if length == 1:
-            return None
-        #find the middle index
-        middle_index = length // 2
+        prev = None
+        slow = head
+        fast = head
 
-        cur = head
-        cur_index = 0
-        while cur is not None and cur_index < middle_index - 1:
-            cur = cur.next
-            cur_index += 1
-
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
         
-        cur.next = cur.next.next
+        prev.next = slow.next
+
         return head
         
-
