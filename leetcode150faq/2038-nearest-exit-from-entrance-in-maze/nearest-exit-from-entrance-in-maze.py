@@ -8,9 +8,9 @@ class Solution(object):
         """
         row_len = len(maze)
         col_len = len(maze[0])
-        visited = [[False for _ in range(col_len)] for _ in range(row_len)]
+        #visited = [[False for _ in range(col_len)] for _ in range(row_len)]
         queue = deque([(entrance[0], entrance[1], 0)])
-        visited[entrance[0]][entrance[1]] = True
+        #visited[entrance[0]][entrance[1]] = True
         directions = [(-1,0), (0,1),(1,0),(0, -1)]
         while queue:
             cur_row, cur_col, steps = queue.popleft()
@@ -19,8 +19,8 @@ class Solution(object):
             
             for dr, dc in directions:
                 new_row, new_col = cur_row + dr, cur_col + dc
-                if 0 <= new_row < row_len and 0 <= new_col < col_len and not visited[new_row][new_col] and  maze[new_row][new_col] == ".":
-                    visited[new_row][new_col] = True
+                if 0 <= new_row < row_len and 0 <= new_col < col_len and maze[new_row][new_col] != "+":
+                    maze[new_row][new_col] = "+"
                     queue.append((new_row, new_col, steps+1))
         
         return -1
