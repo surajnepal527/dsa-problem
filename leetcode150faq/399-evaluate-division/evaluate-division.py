@@ -37,10 +37,10 @@ class Solution(object):
         for neig,val in adj_list[src]:
             if not visited[neig]:
                 result = self.dfs(neig,des, adj_list, visited, res * val)
-                if result != -1.0:
+                if result != -1.0: # Only return if a valid path was found
                     return result
             
-        return -1.0
+        return -1.0 # If no valid path found, return -1.0
         
     def setVisited(self, adj_list):
         return {node:False for node in adj_list}
