@@ -13,7 +13,7 @@ class Solution(object):
         """
         left , right = 1, n
         while left <= right:
-            guess_num = (left+right)/2
+            guess_num = left +  (right - left)/2
             val = guess(guess_num)
             if val == 0:
                 return guess_num
