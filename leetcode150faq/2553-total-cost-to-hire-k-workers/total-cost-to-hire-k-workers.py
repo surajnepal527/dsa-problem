@@ -22,18 +22,15 @@ class Solution(object):
                 heapq.heappush(min_heap_right, costs[j])
                 j -= 1
 
-            left_min = - 1
-            right_min = -1
-            if not min_heap_left:
-                left_min = sys.maxsize
-            else:
+            left_min, right_min  = sys.maxsize, sys.maxsize
+           
+            if min_heap_left:
                 left_min = min_heap_left[0]
-            
-            if not min_heap_right:
-                right_min = sys.maxsize
-            else:
+
+            if  min_heap_right:
                 right_min = min_heap_right[0]
-            
+
+            #value comparision between two min heaps
             if left_min <= right_min:
                 ans += left_min
                 heapq.heappop(min_heap_left)
