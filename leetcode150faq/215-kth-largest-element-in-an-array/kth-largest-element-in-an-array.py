@@ -6,8 +6,13 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        x = heapq.nlargest(k, nums)
-        print(x)
-        return x[k-1]
+        max_heap = []
+        for num in nums:
+            heapq.heappush(max_heap, -num)
+        kth_largest = nums[0]
+        for i in range(k):
+            kth_largest = -heapq.heappop(max_heap)
+        
+        return kth_largest
 
         
