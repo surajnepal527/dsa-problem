@@ -12,8 +12,7 @@ class Solution(object):
         i = 0 
         j = len(costs) - 1
         hire = 0
-        min_heap_left = []
-        min_heap_right = []
+        min_heap_left, min_heap_right = [], []
         while hire < k:
             while len(min_heap_left) < candidates and i <= j:
                 heapq.heappush(min_heap_left, costs[i])
