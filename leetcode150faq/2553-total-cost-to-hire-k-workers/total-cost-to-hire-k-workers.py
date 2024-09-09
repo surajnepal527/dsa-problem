@@ -9,8 +9,7 @@ class Solution(object):
         :rtype: int
         """
         ans = 0
-        i = 0 
-        j = len(costs) - 1
+        i , j = 0 , len(costs) - 1
         hire = 0
         min_heap_left, min_heap_right = [], []
         while hire < k:
