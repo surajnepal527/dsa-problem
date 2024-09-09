@@ -22,10 +22,10 @@ class Solution(object):
             return 0
 
         directions = [(-1,0),(0,1),(1,0),(0,-1)]
-        max_step = 0
+        stepd = 0
         while queue:
             cur_row, cur_col, steps = queue.popleft()
-            max_step = max(max_step, steps)
+            #max_step = max(max_step, steps)
             
             for dr, dc in directions:
                 new_row, new_col = dr+cur_row, dc+cur_col
@@ -35,5 +35,5 @@ class Solution(object):
                     fresh_count -= 1
 
         #check if there are any fresh orange left
-        return -1 if fresh_count > 0 else max_step          
+        return -1 if fresh_count > 0 else steps          
         
