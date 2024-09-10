@@ -10,23 +10,18 @@ class Solution(object):
         tmp = []
         cur_count = 0
         cur_sum = 0
-        self.solve(start_idx, n , k , cur_count, tmp, ans, cur_sum)
+        self.solve(start_idx, n , k ,tmp, ans)
         return ans
     
-    def solve(self, idx, n , k ,cur_count, tmp, ans, cur_sum):
-        if cur_count < k and cur_sum >= n:
-            return
-        if cur_count == k and cur_sum == n:
-            tmp_copy = tmp[:]
-            ans.append(tmp_copy)
+    def solve(self, idx, target , k , tmp, ans):
+        if len(tmp) == k and target == 0: 
+            ans.append(tmp[:])
             return
         
-        if cur_count >= k and cur_sum != n :
+        if len(tmp) >= k or target <= 0 :
             return
 
         for i in range(idx, 10, 1):
             tmp.append(i)
-            cur_sum += i
-            self.solve(i+1, n, k, cur_count + 1,tmp, ans, cur_sum)
-            cur_sum -= i
+            self.solve(i+1, target - i, k,tmp, ans)
             tmp.pop() 
