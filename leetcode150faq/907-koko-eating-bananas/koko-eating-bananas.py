@@ -14,7 +14,7 @@ class Solution(object):
         for pile in piles:
             right = max(right, pile)
         
-        while left <= right:
+        while left < right:
             mid = left + (right-left)//2
             total_hrs = 0
             for pile in piles:
@@ -22,7 +22,7 @@ class Solution(object):
                 if pile%mid != 0:
                     total_hrs += 1
             if total_hrs <= h:
-                right = mid - 1
+                right = mid
             else:
                 left = mid + 1
         
