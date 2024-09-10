@@ -9,21 +9,24 @@ class Solution(object):
         ans = []
         tmp = []
         cur_count = 0
-        self.solve(start_idx, n , k , cur_count, tmp, ans)
+        cur_sum = 0
+        self.solve(start_idx, n , k , cur_count, tmp, ans, cur_sum)
         return ans
     
-    def solve(self, idx, n , k ,cur_count, tmp, ans):
-        #if idx >= 10:
-        #    return
-        if cur_count == k:
-            sum = 0
-            for num in tmp:
-                sum += num
-            if sum == n:
-                tmp_copy = tmp[:]
-                ans.append(tmp_copy)
+    def solve(self, idx, n , k ,cur_count, tmp, ans, cur_sum):
+        if cur_count < k and cur_sum >= n:
             return
+        if cur_count == k and cur_sum == n:
+            tmp_copy = tmp[:]
+            ans.append(tmp_copy)
+            return
+        
+        if cur_count >= k and cur_sum != n :
+            return
+
         for i in range(idx, 10, 1):
             tmp.append(i)
-            self.solve(i+1, n, k, cur_count + 1,tmp, ans)
+            cur_sum += i
+            self.solve(i+1, n, k, cur_count + 1,tmp, ans, cur_sum)
+            cur_sum -= i
             tmp.pop() 
