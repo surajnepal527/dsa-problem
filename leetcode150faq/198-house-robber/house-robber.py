@@ -4,17 +4,15 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        sum = 0
-        t = [-1] * (len(nums) + 1)
-        return self.solve(0, nums, t)
-    
-    def solve(self, idx, nums, t):
-        if idx >= len(nums):
-            return 0
-        if t[idx] != -1:
-            return t[idx]
+        n = len(nums)
+        t = [-1] * (n + 1)
+        t[0] = 0
+        t[1] = nums[0]
+        for i in range(2, n+1):
+            steal = nums[i-1] + t[i-2]
+            skip = t[i-1]
+            t[i] = max(steal, skip)
+        
+        return t[n]
 
-        sum_a = nums[idx] +  self.solve(idx+2, nums , t)
-        sum_b = self.solve(idx+1, nums, t)
-        t[idx] =  max(sum_a, sum_b)
-        return t[idx]
+        
