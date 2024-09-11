@@ -5,20 +5,12 @@ class Solution(object):
         :type text2: str
         :rtype: int
         """
-        tmp = [[-1 for _ in range(1001)] for _ in range(1001)]
-        return self.solve(0 , 0,text1, text2, tmp)
-    
-    def solve(self, idx1, idx2, text1, text2, tmp):
-        if idx1 >= len(text1) or idx2 >= len(text2):
-            return 0
+        tmp = [[0 for _ in range(len(text2)+1)] for _ in range(len(text1)+1)]
+        for i in range(1, len(text1) + 1):
+            for j in range(1, len(text2) + 1):
+                if text1[i-1] == text2[j-1]:
+                    tmp[i][j] = 1 + tmp[i-1][j-1]
+                else:
+                    tmp[i][j] = max(tmp[i-1][j], tmp[i][j-1])
         
-        if tmp[idx1][idx2] != -1:
-            return tmp[idx1][idx2]
-
-        if text1[idx1] == text2[idx2]:
-            tmp[idx1][idx2] = 1 + self.solve(idx1+1, idx2+1, text1, text2,tmp)
-           
-        else:
-           tmp[idx1][idx2] =  max(self.solve(idx1, idx2+1, text1, text2, tmp), self.solve(idx1+1, idx2, text1, text2,tmp)) 
-
-        return tmp[idx1][idx2]            
+        return tmp[len(text1)][len(text2)]
