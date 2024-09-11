@@ -5,23 +5,13 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        t = [[-1 for _ in range(n)] for _ in range(m)]
-        return self.solve(0, 0, m , n, t)
-    
-    def solve(self, row, col , m , n,t):
-        if row >= m or col >= n:
-            return 0
+        tmp = [[-1 for _ in range(n)] for _ in range(m)]
+        for i in range(m):
+            for j in range(n):
+                if i == 0 or j == 0:
+                    tmp[i][j] = 1
+                else:
+                    tmp[i][j] = tmp[i-1][j] + tmp[i][j-1]
         
-        if row == m-1 and col == n-1:
-            return 1
-        
-        if t[row][col] != -1:
-            return t[row][col]
-        
-        #go down and go right
-        right = self.solve(row+1, col, m , n,t )
-        down = self.solve(row, col+1, m , n, t)
-        t[row][col] = right + down
-        return t[row][col]
-        
+        return tmp[m-1][n-1]
         
