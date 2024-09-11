@@ -4,16 +4,11 @@ class Solution(object):
         :type cost: List[int]
         :rtype: int
         """
-        t = [-1] * (len(cost) + 1)
-        return min (self.solve(0, cost, t) , self.solve(1, cost, t))
-
-    def solve(self, idx, cost, t):
-        if idx >= len(cost):
-            return 0
-        if t[idx] != -1:
-            return t[idx]
-        a = cost[idx] + self.solve(idx + 1, cost,t)
-        b = cost[idx] + self.solve(idx+2, cost,t)
-        t[idx] =  min(a, b)
-        return t[idx]
+        n = len(cost)
+        tmp = [0] * n
+        tmp[0] = cost[0]
+        tmp[1] = cost[1]
+        for i in range(2, n,1):
+            tmp[i] = cost[i] + min(tmp[i-1], tmp[i-2])
         
+        return min(tmp[n-1], tmp[n-2])
