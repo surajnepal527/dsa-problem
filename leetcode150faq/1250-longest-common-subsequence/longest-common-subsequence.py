@@ -17,7 +17,8 @@ class Solution(object):
 
         if text1[idx1] == text2[idx2]:
             tmp[idx1][idx2] = 1 + self.solve(idx1+1, idx2+1, text1, text2,tmp)
-            return tmp[idx1][idx2]
+           
         else:
            tmp[idx1][idx2] =  max(self.solve(idx1, idx2+1, text1, text2, tmp), self.solve(idx1+1, idx2, text1, text2,tmp)) 
-           return tmp[idx1][idx2]        
+
+        return tmp[idx1][idx2]            
