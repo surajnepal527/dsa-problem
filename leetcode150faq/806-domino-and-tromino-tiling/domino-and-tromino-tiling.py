@@ -4,19 +4,19 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        mod_val = (10 ** 9) + 7
-        t = [-1] * (n + 1)
-        return self.solve(n, mod_val, t)
-
-    def solve(self, n, mod_val, t):
+        mod_val = 10 ** 9 + 7
         if n == 1 or n == 2:
             return n
-        if n == 3:
-            return 5
+        t = [-1] *(n+1)
+        t[1] = 1
+        t[2] = 2
+        t[3] = 5
 
-        if t[n] != -1:
-            return t[n]
+        for i in range(4, n+1):
+            t[i] = ((2 * t[i-1]) % mod_val) + (t[i-3] % mod_val) % mod_val
         
-        t[n] =  ((2 * self.solve(n-1, mod_val, t)) % mod_val + (self.solve(n-3, mod_val, t)) % mod_val)%mod_val
+        return t[n] % mod_val
+
+
+
         
-        return t[n]
