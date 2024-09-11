@@ -5,6 +5,9 @@ class Solution(object):
         :rtype: int
         """
         n = len(cost)
+        if n == 2:
+            return min(cost[0], cost[1])
+        
         # tmp = [0] * n
         # tmp[0] = cost[0]
         # tmp[1] = cost[1]
