@@ -19,7 +19,9 @@ class Solution(object):
             return t[row][col]
         
         #go down and go right
-        t[row][col] =  self.solve(row+1, col, m , n,t ) + self.solve(row, col+1, m , n, t)
+        right = self.solve(row+1, col, m , n,t )
+        down = self.solve(row, col+1, m , n, t)
+        t[row][col] = right + down
         return t[row][col]
         
         
