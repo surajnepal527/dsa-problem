@@ -16,12 +16,12 @@ class Solution(object):
             ne = intervals[j][1]
 
             if ce > ns:
+                count += 1
                 if ce <= ne:
                     j += 1
                 else:
                     i = j
-                    j += 1
-                count += 1
+                    j += 1   
             else:
                 i = j
                 j += 1
