@@ -10,14 +10,16 @@ class Solution:
                 product = product * num
         
         for i in range(len(nums)):
-            if zero_count > 0 and nums[i] != 0:
-                ans.append(0)
-            elif zero_count > 1 and nums[i] == 0:
-                ans.append(0)
-            elif zero_count == 1 and nums[i] == 0:
-                ans.append(product)
+            cur_num = nums[i]
+            if zero_count > 0:
+                if zero_count == 1 and cur_num == 0:
+                    ans.append(product)
+                else:
+                    ans.append(0)
             else:
-                ans.append(product//nums[i])
+                ans.append(product//cur_num)
+
+
         
         return ans
 
