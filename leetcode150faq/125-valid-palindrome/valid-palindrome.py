@@ -9,8 +9,6 @@ class Solution:
                 right -= 1
             if left == right:
                 return True
-            if not self.isValidAscii(s[left]) or not self.isValidAscii(s[right]):
-                return False
             left_char = s[left].lower()
             right_char = s[right].lower()
             if left_char != right_char:
