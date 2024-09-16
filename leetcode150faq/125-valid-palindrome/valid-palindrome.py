@@ -1,22 +1,26 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        formatted_s = ""
-        n = len(s)
-        if n <=1:
-            return True
-
-        for i in range(len(s)):
-            cur_ascii_char = ord(s[i])
-            if cur_ascii_char >= 65 and cur_ascii_char <= 90:
-                formatted_s += chr(cur_ascii_char+32)
-            elif cur_ascii_char >= 97 and cur_ascii_char <= 122 or (cur_ascii_char >= 48 and cur_ascii_char <= 57):
-                formatted_s += s[i]
-
-        left,right = 0 , len(formatted_s) - 1
+        left = 0
+        right = len(s) - 1
         while left < right:
-            if formatted_s[left] != formatted_s[right]:
+            while not self.isValidAscii(s[left]) and left < right:
+                left += 1
+            while not self.isValidAscii(s[right]) and left < right:
+                right -= 1
+            if left == right:
+                return True
+            if not self.isValidAscii(s[left]) or not self.isValidAscii(s[right]):
+                return False
+            left_char = s[left].lower()
+            right_char = s[right].lower()
+            if left_char != right_char:
                 return False
             left += 1
             right -= 1
         
         return True
+
+
+    def isValidAscii(self, char: chr) -> bool:
+        ascii_val = ord(char)
+        return (ascii_val >= ord('0') and ascii_val <= ord('9')) or (ascii_val >= ord('a') and ascii_val <= ord('z')) or (ascii_val >= ord('A') and ascii_val <= ord('Z'))    
