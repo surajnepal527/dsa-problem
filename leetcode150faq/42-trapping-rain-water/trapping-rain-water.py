@@ -8,20 +8,18 @@ class Solution:
         ans = 0
         while left <= right:
             if lmax <= rmax:
-                cur = left
-                possible_ans = min(lmax, rmax) - height[cur]
+                possible_ans = min(lmax, rmax) - height[left]
                 if possible_ans > 0:
                     ans += possible_ans
-                if height[cur] > lmax:
-                    lmax = height[cur]
+                if height[left] > lmax:
+                    lmax = height[left]
                 left += 1
             else:
-                cur = right
-                possible_ans = min(lmax, rmax) - height[cur]
+                possible_ans = min(lmax, rmax) - height[right]
                 if possible_ans > 0:
                     ans += possible_ans
-                if height[cur] >rmax:
-                    rmax = height[cur]
+                if height[right] > rmax:
+                    rmax = height[right]
                 right -= 1
 
         return ans
