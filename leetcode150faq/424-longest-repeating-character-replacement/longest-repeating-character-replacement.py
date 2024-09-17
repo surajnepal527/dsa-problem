@@ -5,28 +5,14 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        hashset = {}
-        i , j, n  = 0, 0 , len(s)
+        l = 0
         ans = 0
-        while i <= j and j < n:
-            hashset[s[j]] = hashset.get(s[j],0) + 1
-            most_freq_count = self.getMostFrequentChar(hashset)
-            if j-i+1 - most_freq_count <= k:
-                ans = max(ans, j-i+1)
-                j += 1
-            else:
-                hashset[s[i]] = hashset.get(s[i]) - 1
-                hashset[s[j]] = hashset.get(s[j],0) - 1
-                i += 1
-
-        return ans
+        count_map = {}
+        for r in range(len(s)):
+            count_map[s[r]] = count_map.get(s[r],0) + 1
+            while (r-l+1 - max(count_map.values()) > k):
+                count_map[s[l]] -= 1
+                l +=1
+            ans = max(ans, r-l+1)
         
-
-
-    
-
-    def getMostFrequentChar(self, hashset):
-        most_freq_count = 0
-        for key, value in hashset.items():
-            most_freq_count = max(most_freq_count,value)
-        return most_freq_count
+        return ans
