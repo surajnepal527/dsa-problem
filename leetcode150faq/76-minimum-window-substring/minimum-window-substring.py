@@ -9,23 +9,22 @@ class Solution:
             char_map[t_char] = char_map.get(t_char, 0) + 1
         
         while r < n:
-            char_r = s[r]
-            if char_map.get(char_r, 0) > 0:
+            if char_map.get(s[r], 0) > 0:
                 req_count -= 1
-            char_map[char_r] = char_map.get(char_r, 0) - 1
+            char_map[s[r]] = char_map.get(s[r], 0) - 1
             while req_count == 0:
                 if min_win > r-l+1:
                     min_win = min(min_win, r-l+1)
                     start_l = l
-                char_l = s[l]
-                char_map[char_l] = char_map.get(char_l, 0) + 1
-                if char_map.get(s[l], 0) > 0:
+                char_map[s[l]] += 1
+                if char_map[s[l]] > 0:
                     req_count += 1
                 l += 1
             r += 1
         
-        if min_win != n+1:
-             return s[start_l: start_l+min_win]
-        else:
-             return ""
+        return s[start_l:start_l+min_win] if min_win != n+1 else ""
+        #if min_win != n+1:
+        #     return s[start_l: start_l+min_win]
+        #else:
+        #     return ""
         
