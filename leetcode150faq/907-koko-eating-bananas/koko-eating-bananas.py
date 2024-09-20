@@ -9,12 +9,11 @@ class Solution:
                 total_hr += pile//mid
                 if pile%mid > 0 :
                     total_hr += 1
-            
             if total_hr <= h:
                 right = mid
             else:
                 left = mid + 1
         
-        return left
+        return right
 
         
