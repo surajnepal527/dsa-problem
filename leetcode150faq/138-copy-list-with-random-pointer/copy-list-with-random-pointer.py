@@ -30,10 +30,9 @@ class Solution:
             copy_head = head.next
         while cur:
             copy_node = cur.next
-            cur.next = copy_node.next
+            cur = copy_node.next
             if copy_node.next:
                 copy_node.next = copy_node.next.next
-            cur = cur.next
         return copy_head
 
 
