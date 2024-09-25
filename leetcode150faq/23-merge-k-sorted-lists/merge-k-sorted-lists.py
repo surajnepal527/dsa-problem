@@ -5,32 +5,31 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        if not lists:
-            return ListNode(val = "")
-        head_m = lists[0]
-        for i in range(1, len(lists)):
-            head_i = lists[i]
-            cur_m = head_m
-            cur_i = head_i
-            dummy = ListNode()
-            main_cur = dummy
-            while cur_m and cur_i:
-                if cur_m.val <= cur_i.val:
-                    dummy.next = cur_m
-                    cur_m = cur_m.next
-                else:
-                    dummy.next = cur_i
-                    cur_i = cur_i.next
-                dummy = dummy.next
-            while cur_m:
-                dummy.next = cur_m
-                cur_m = cur_m.next
-                dummy = dummy.next
-            while cur_i:
-                dummy.next = cur_i
-                cur_i = cur_i.next
-                dummy = dummy.next
-            head_m = main_cur.next
-        return head_m
-            
+        if not lists or len(lists) == 0:
+            return None
+        while len(lists) > 1:
+            mergedLists = []
+            for i in range(0,len(lists), 2):
+                l1 = lists[i]
+                l2 = lists[i+1] if i+1 < len(lists) else None
+                mergedLists.append(self.mergeList(l1, l2))
+            lists = mergedLists
+        return lists[0]
+    
+    def mergeList(self, l1, l2):
+        dummy = ListNode()
+        tail = dummy
+        while l1 and l2:
+            if l1.val<= l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+        if l1:
+            tail.next = l1
+        if l2:
+            tail.next = l2
+        return dummy.next
         
