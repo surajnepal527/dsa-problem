@@ -13,10 +13,10 @@ class Solution:
             kthNode = self.getKthNode(prev_gp, k)
             if not kthNode:
                 break
-            next_grp = kthNode.next
+            next_node = kthNode.next
             prev = kthNode.next
             cur = prev_gp.next
-            while cur and cur != next_grp:
+            while cur and cur != next_node:
                 next = cur.next
                 cur.next = prev
                 prev = cur
@@ -34,5 +34,5 @@ class Solution:
         while cur and k > 0:
             cur = cur.next
             k -= 1
-        return cur
+        return cur if k == 0 else None
         
