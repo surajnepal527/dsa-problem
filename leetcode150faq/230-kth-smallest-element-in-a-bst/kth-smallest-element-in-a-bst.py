@@ -11,6 +11,8 @@ class Solution:
             if not root:return None
             dfs(root.left)
             result.append(root.val)
+            if len(result) == k:
+                return
             dfs(root.right)
         dfs(root)
         return result[k-1]
