@@ -10,7 +10,7 @@ class Solution:
         high, low = float("infinity"), float("-infinity")
         def dfs(root, high, low):
             if not root:return True
-            if not (root.val < high and root.val >low): return False
+            if not(root.val < high and root.val > low): return False
             left = dfs(root.left, root.val , low)
             right = dfs(root.right, high, root.val)
             return left and right
