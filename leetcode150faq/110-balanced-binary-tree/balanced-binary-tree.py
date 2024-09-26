@@ -6,6 +6,8 @@
 #         self.right = right
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        if root is None:
+            return True
         isHeightBalanced = [True]
        
         def checkHeight(root):
