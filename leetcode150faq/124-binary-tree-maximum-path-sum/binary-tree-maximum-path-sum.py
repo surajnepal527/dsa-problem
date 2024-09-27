@@ -12,7 +12,10 @@ class Solution:
             if not root:return 0
             left = dfs(root.left)
             right = dfs(root.right)
-            max_sum[0] = max(max_sum[0], left+right+root.val, max(left, right) + root.val, root.val)
+            total_path_sum = left+right+root.val
+            left_or_right_path_sum = max(left, right) + root.val
+            root_sum = root.val
+            max_sum[0] = max(max_sum[0], total_path_sum, left_or_right_path_sum, root_sum)
             if left <= 0 and right <= 0:
                 return root.val
             return max(left, right) + root.val 
