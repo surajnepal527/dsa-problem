@@ -13,9 +13,8 @@ class Solution:
             nonlocal pre_idx
             if start > end: 
                 return None
-            root_value = preorder[pre_idx]
-            in_idx = inorder_map[root_value]
-            root = TreeNode(root_value)
+            in_idx = inorder_map[preorder[pre_idx]]
+            root = TreeNode(preorder[pre_idx])
             pre_idx += 1
             root.left = dfs(start, in_idx-1)
             root.right = dfs(in_idx+1, end)
