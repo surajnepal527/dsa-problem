@@ -8,19 +8,15 @@ import sys
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         max_sum = [-sys.maxsize]
-        cur_sum = 0
-        def dfs(root, cur_sum):
+        def dfs(root):
             if not root:return 0
-            left = dfs(root.left, cur_sum)
-            right = dfs(root.right, cur_sum)
-            cur_sum = left+right+root.val
-            max_sum[0] = max(max_sum[0], cur_sum, max(left, right) + root.val, root.val)
+            left = dfs(root.left)
+            right = dfs(root.right)
+            max_sum[0] = max(max_sum[0], left+right+root.val, max(left, right) + root.val, root.val)
             if left <= 0 and right <= 0:
                 return root.val
             return max(left, right) + root.val 
-
-
-        dfs(root, 0)
+        dfs(root)
         return max_sum[0]
         
         
