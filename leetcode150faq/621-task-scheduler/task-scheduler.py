@@ -7,23 +7,22 @@ class Solution:
         for task in tasks:
             tf_map[task] = tf_map.get(task, 0) + 1
         for task, freq in tf_map.items():
-            heapq.heappush(max_heap, (-freq, task))
+            heapq.heappush(max_heap, -freq)
         
         while max_heap:
             k = 0
             tmp_task_arr = []
             while max_heap and k < n+1:
-              freq, task  = heapq.heappop(max_heap)
+              freq = -heapq.heappop(max_heap)
               ans += 1
               k += 1
-              freq = -freq
-              if freq - 1 > 0:
-                tmp_task_arr.append(task)
-                tf_map[task] -= 1
+              freq -= 1
+              if freq > 0:
+                tmp_task_arr.append(freq)
             if tmp_task_arr:
                 ans += n+1-k
-            for tsk in tmp_task_arr:
-                heapq.heappush(max_heap, (-tf_map[tsk], tsk))
+            for fre in tmp_task_arr:
+                heapq.heappush(max_heap, -fre)
         
         return ans
 
