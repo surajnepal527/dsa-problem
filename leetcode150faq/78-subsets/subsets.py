@@ -7,12 +7,12 @@ class Solution:
             if start >= len(nums):
                 res.append(ans.copy())
                 return
-            #skip
-            solve(start+1, ans)
             #keep
             ans.append(nums[start])
             solve(start+1, ans)
             ans.pop()
+            #skip
+            solve(start+1, ans)
         solve(start, ans)
         return res
         
