@@ -9,7 +9,7 @@ class Solution:
                 if nums[i] not in ans:
                     ans.append(nums[i])
                     solve(ans)
-                    ans.remove(nums[i])
+                    ans.pop()
             
         solve(ans)
         return res
