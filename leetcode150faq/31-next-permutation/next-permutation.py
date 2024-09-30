@@ -11,17 +11,14 @@ class Solution:
         if break_pt == -1:
             self.reverse(nums, 0, len(nums)-1)
             return nums
-        #exchange_pt = -1
         for i in range(len(nums)-1, -1, -1):
             if nums[i] > nums[break_pt]:
                 nums[i], nums[break_pt] = nums[break_pt], nums[i]
-                #exchange_pt = i
                 break
-        # reverse num
         self.reverse(nums, break_pt+1, len(nums)-1)
         return nums
     def reverse(self, nums:List[int], start:int, end:int):
-        while start <= end:
+        while start < end:
             tmp = nums[start]
             nums[start] = nums[end]
             nums[end] = tmp
