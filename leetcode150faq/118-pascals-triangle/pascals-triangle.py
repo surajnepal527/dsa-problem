@@ -3,12 +3,12 @@ class Solution:
         res = [[1]]  # Initialize the result with the first row
         
         for n in range(1, numRows):
-            prev = res[n-1]  # Get the last row
-            tmp = [1]  # Start the new row with 1
+            prev_row = res[-1]  # Get the last row
+            new_row = [1]  # Start the new row with 1
             for i in range(1, n):
                 # Each element is the sum of the two elements directly above it
-                tmp.append(prev[i - 1] + prev[i])
-            tmp.append(1)  # End the new row with 1
-            res.append(tmp)
+                new_row.append(prev_row[i - 1] + prev_row[i])
+            new_row.append(1)  # End the new row with 1
+            res.append(new_row)
         
         return res
