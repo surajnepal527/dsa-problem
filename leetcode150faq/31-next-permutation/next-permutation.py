@@ -1,36 +1,31 @@
-class Solution(object):
-    def nextPermutation(self, nums):
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
         """
-        :type nums: List[int]
-        :rtype: None Do not return anything, modify nums in-place instead.
+        Do not return anything, modify nums in-place instead.
         """
-        #find break point
-        idx = -1
-        for i in range(len(nums)-2, -1, -1):
-            if nums[i+1] > nums[i]:
-                idx = i
+        break_pt = -1
+        for i in range(len(nums)-1, -1, -1):
+            if nums[i] > nums[i-1]:
+                break_pt = i-1
                 break
-        
-        if idx == -1:
-            self.reverse(nums,0,len(nums)-1)
-        else:
-            for i in range(len(nums)-1, idx, -1):
-                if nums[i] > nums[idx]:
-                    self.swap(nums, i, idx)
-                    break
-            self.reverse(nums, idx+1, len(nums)-1)
-
-    def reverse(self, nums, left , right):
-        while(left < right):
-            tmp = nums[right]
-            nums[right] = nums[left]
-            nums[left] = tmp
-            left += 1
-            right -= 1
-    
-    def swap(self, nums, start, end):
-        tmp = nums[end]
-        nums[end] = nums[start]
-        nums[start] = tmp
+        if break_pt == -1:
+            self.reverse(nums, 0, len(nums)-1)
+            return nums
+        #exchange_pt = -1
+        for i in range(len(nums)-1, -1, -1):
+            if nums[i] > nums[break_pt]:
+                nums[i], nums[break_pt] = nums[break_pt], nums[i]
+                #exchange_pt = i
+                break
+        # reverse num
+        self.reverse(nums, break_pt+1, len(nums)-1)
+        return nums
+    def reverse(self, nums:List[int], start:int, end:int):
+        while start <= end:
+            tmp = nums[start]
+            nums[start] = nums[end]
+            nums[end] = tmp
+            start += 1
+            end -= 1
 
         
