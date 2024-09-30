@@ -1,27 +1,14 @@
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
-        res = []
-        ans = []
-        if numRows == 1:
-            res.append([1])
-            return res
-        elif numRows == 2:
-            res.append([1])
-            res.append([1,1])
-            return res
-        else:
-            res.append([1])
-            res.append([1,1])
-            for n in range(3,numRows+1):
-                ans = []
-                tmp = 1
-                ans.append(tmp)
-                for i in range(1, n):
-                    tmp = tmp * (n-i)
-                    tmp = tmp/i
-                    ans.append(int(tmp))
-                res.append(ans.copy())
+        res = [[1]]  # Initialize the result with the first row
+        
+        for n in range(1, numRows):
+            prev = res[n-1]  # Get the last row
+            tmp = [1]  # Start the new row with 1
+            for i in range(1, n):
+                # Each element is the sum of the two elements directly above it
+                tmp.append(prev[i - 1] + prev[i])
+            tmp.append(1)  # End the new row with 1
+            res.append(tmp)
+        
         return res
-
-        
-        
