@@ -5,6 +5,7 @@ class Solution:
         def solve(ans):
             if len(ans) == len(nums):
                 res.append(ans.copy())
+                return
             for i in range(len(nums)):
                 if nums[i] not in ans:
                     ans.append(nums[i])
