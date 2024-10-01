@@ -6,11 +6,12 @@ class Solution:
         def solve(r, c, cur):
             if cur == len(word):
                 return True
-            if (r >= rows or c >= cols or r < 0 or c < 0 or (r,c) in path or board[r][c] != word[cur]):
+            if (r >= rows or c >= cols or r < 0 or c < 0 or board[r][c] == "#" or board[r][c] != word[cur]):
                 return False
-            path.add((r,c))
+            tmp = board[r][c]
+            board[r][c] = "#"
             res = (solve(r+1, c, cur+1) or solve(r-1, c, cur+1) or solve(r, c+1, cur+1) or solve(r, c-1, cur+1))
-            path.remove((r,c))
+            board[r][c] = tmp
             return res
         
         for r in range(rows):
