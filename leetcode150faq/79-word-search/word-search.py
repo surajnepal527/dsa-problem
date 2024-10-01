@@ -2,7 +2,6 @@ class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         rows = len(board)
         cols = len(board[0])
-        path = set()
         def solve(r, c, cur):
             if cur == len(word):
                 return True
@@ -16,7 +15,7 @@ class Solution:
         
         for r in range(rows):
             for c in range(cols):
-                if solve(r, c, 0):
+                if board[r][c] == word[0] and solve(r, c, 0):
                     return True
         return False
         
