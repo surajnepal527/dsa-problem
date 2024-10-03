@@ -21,9 +21,7 @@ class Solution:
                     n_c = co+c1
                     if 0 <= n_r < rows and  0 <= n_c < cols and rooms[n_r][n_c] == 2147483647:
                         rooms[n_r][n_c] = rooms[ro][co] + 1
-                        que.append([n_r, n_c])
-
-
+                        que.append((n_r, n_c))
 
 
 
