@@ -8,7 +8,6 @@ class Solution:
         if rows < 3 and cols < 3:
             return
         que = deque()
-        visited = set()
         row_col_list = [(1,0),(-1,0),(0,1),(0,-1)]
         #just iterate over boundaries
         def mark_boundries(r, c):
@@ -17,16 +16,15 @@ class Solution:
 
         #first row and last row
         for c in range(cols):
-            if board[0][c] == "O":
-                mark_boundries(0, c)
-            if board[rows-1][c] == "O":
-                mark_boundries(rows-1, c)
+            for r in [0, rows-1]:
+                if board[r][c] == "O":
+                    mark_boundries(r,c)
+
         #first col and last col
         for r in range(rows):
-            if board[r][0] == "O":
-                mark_boundries(r,0)
-            if board[r][cols-1] == "O":
-                mark_boundries(r, cols-1)
+            for c in [0, cols-1]:
+                if board[r][c] == "O":
+                    mark_boundries(r,c)
 
         while que:
             rq, cq = que.popleft()
