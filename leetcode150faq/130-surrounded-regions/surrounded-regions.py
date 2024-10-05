@@ -11,22 +11,22 @@ class Solution:
         visited = set()
         row_col_list = [(1,0),(-1,0),(0,1),(0,-1)]
         #just iterate over boundaries
+        def mark_boundries(r, c):
+            board[r][c] = "NS"
+            que.append((r,c))
+
         #first row and last row
         for c in range(cols):
             if board[0][c] == "O":
-                board[0][c] = "NS"
-                que.append((0,c))
+                mark_boundries(0, c)
             if board[rows-1][c] == "O":
-                board[rows-1][c] = "NS"
-                que.append((rows-1,c))
+                mark_boundries(rows-1, c)
         #first col and last col
         for r in range(rows):
             if board[r][0] == "O":
-                board[r][0] = "NS"
-                que.append((r, 0))
+                mark_boundries(r,0)
             if board[r][cols-1] == "O":
-                board[r][cols-1] = "NS"
-                que.append((r,cols-1))
+                mark_boundries(r, cols-1)
 
         while que:
             rq, cq = que.popleft()
