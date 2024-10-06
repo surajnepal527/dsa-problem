@@ -1,21 +1,27 @@
+from collections import defaultdict
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        preMap = { i: [] for i in range(numCourses)}
+        adj = defaultdict(list)
         for crs, pre in prerequisites:
-            preMap[crs].append(pre)
+            adj[crs].append(pre)
         visited = set()
-        def dfs(crs):
-            if crs in visited:
+        cur_path = set()
+
+        def dfs(cur_crs, cur_path):
+            if cur_crs in cur_path:
                 return False
-            if preMap[crs] == []:
+            if cur_crs in visited:
                 return True
-            visited.add(crs)
-            for pre in preMap[crs]:
-                if not dfs(pre):return False
-            visited.remove(crs)
-            preMap[crs] = []
+            cur_path.add(cur_crs)
+            for pre in adj[cur_crs]:
+                if not dfs(pre, cur_path) : return False
+            cur_path.remove(cur_crs)
+            visited.add(cur_crs)
             return True
-        for crs in range(numCourses):
-            if not dfs(crs): return False
+        
+        for i in range(numCourses):
+            if i not in visited:
+                if not dfs(i, cur_path) : return False
         return True
+
         
