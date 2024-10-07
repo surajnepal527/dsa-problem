@@ -3,7 +3,7 @@ class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         adj = defaultdict(list)
         for crs, pre in prerequisites:
-            adj[pre].append(crs)
+            adj[crs].append(pre)
         visited = set()
         cur_path = set()
         stack, res = [], []
@@ -24,9 +24,6 @@ class Solution:
             if i not in visited:
                 if not dfs(i):return []
         
-
-        while stack:
-            res.append(stack.pop())
-        return res
+        return stack
 
         
