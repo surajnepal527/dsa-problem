@@ -10,19 +10,17 @@ class Solution:
             adj[v].append(u)
         
         def dfs(u,par):
+            if u in visited:
+                return False
             visited.add(u)
             for v in adj[u]:
                 if v == par:
                     continue
-                if v in visited:
-                    return False
+
                 if not dfs(v, u): return False
             return True
             
-        if not dfs(0, -1):
-            return False
-        
-        return len(visited) == n
+        return dfs(0, -1) and len(visited) == n
                     
 
 
