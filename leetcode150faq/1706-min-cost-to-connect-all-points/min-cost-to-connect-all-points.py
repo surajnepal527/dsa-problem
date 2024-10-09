@@ -8,8 +8,8 @@ class Solution:
                 xi, yi = points[i]
                 xj, yj = points[j]
                 wt = abs(xj - xi) + abs(yj- yi)
-                adj[i].append([wt, j])
-                adj[j].append([wt, i])
+                adj[i].append((wt, j))
+                adj[j].append((wt, i))
         
         visited = set()
         min_heap = []
@@ -21,9 +21,9 @@ class Solution:
                 continue
             sum_wt  += wt
             visited.add(node)
-            for node_wt in adj[node]:
-                if node_wt[1] not in visited:
-                    heapq.heappush(min_heap, (node_wt[0], node_wt[1]))
+            for wt, nd in adj[node]:
+                if nd not in visited:
+                    heapq.heappush(min_heap, (wt, nd))
         return sum_wt
 
         
