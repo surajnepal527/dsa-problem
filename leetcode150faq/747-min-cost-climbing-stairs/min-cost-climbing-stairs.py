@@ -1,17 +1,18 @@
-class Solution(object):
-    def minCostClimbingStairs(self, cost):
-        """
-        :type cost: List[int]
-        :rtype: int
-        """
-        n = len(cost)
-        if n == 2:
-            return min(cost[0], cost[1])
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        #brute force top down approach
+        k = len(cost)
+        memo = [-1] * (k+1)
+        def solve(pos):
+            if pos >= k :
+                return 0
+            if memo[pos] != -1: return memo[pos]
+            oneStep = cost[pos] + solve(pos+1)
+            twoStep = cost[pos] + solve(pos+2)
+            memo[pos] =  min(oneStep, twoStep)
+            return memo[pos]
+        start_zero = solve(0)
+        start_one = solve(1)
+        return min(start_zero, start_one)
+
         
-        # tmp = [0] * n
-        # tmp[0] = cost[0]
-        # tmp[1] = cost[1]
-        for i in range(2, n,1):
-            cost[i] = cost[i] + min(cost[i-1], cost[i-2])
-        
-        return min(cost[n-1], cost[n-2])
