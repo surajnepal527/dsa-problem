@@ -4,8 +4,6 @@ class Solution:
         memo = [-1]*(n+1)
         memo[0] = 1
         def solve(n):
-            if n == 0:
-                return memo[n]
             if n < 0:
                 return 0
             if memo[n] != -1:
