@@ -1,7 +1,6 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
         if n <= 2 : return n
-        ways = [0] * (n+1)
         first, second = 1, 2
         third = 0
         for i in range(3, n+1):
