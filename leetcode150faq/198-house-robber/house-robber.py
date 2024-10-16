@@ -1,18 +1,14 @@
-class Solution(object):
-    def rob(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        n = len(nums)
-        t = [-1] * (n + 1)
-        t[0] = 0
-        t[1] = nums[0]
-        for i in range(2, n+1):
-            steal = nums[i-1] + t[i-2]
-            skip = t[i-1]
-            t[i] = max(steal, skip)
-        
-        return t[n]
-
-        
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        k = len(nums)
+        memo = [-1] * (k+1)
+        def solve(house):
+            if house >= k: return 0
+            if memo[house] != -1: return memo[house]
+            #keep
+            suma = nums[house] + solve(house+2)
+            #skip
+            sumb = solve(house+1)
+            memo[house] =  max(suma, sumb)
+            return memo[house]
+        return solve(0)
