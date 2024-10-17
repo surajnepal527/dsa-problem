@@ -1,17 +1,21 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        k = len(nums)
-        if k == 1: return nums[0]
-        memo = [-1] *(k+1)
-        def solve(house, n):
-            if house >= n : return 0
-            if memo[house] != -1 : return memo[house]
-            suma = nums[house] + solve(house+2,n)
-            sumb = solve(house+1, n)
-            memo[house] =  max(suma, sumb)
-            return memo[house]
-        a = solve(0, k-1)
-        memo = [-1] *(k+1)
-        b = solve(1, k)
-        return max(a, b)
+        if len(nums) == 1:
+            return nums[0]
+
+        def solve(tmp):
+            k = len(tmp)
+            if k == 1:
+                return tmp[0]
+            first, sec, third = 0, tmp[0], 0
+            for i in range(2,k+1):
+                third = max(tmp[i-1] + first, sec)
+                first = sec
+                sec = third
+            return third
+        
+        res1 = solve(nums[1:])
+        res2 = solve(nums[:-1])
+        return max(res1, res2)
+
         
