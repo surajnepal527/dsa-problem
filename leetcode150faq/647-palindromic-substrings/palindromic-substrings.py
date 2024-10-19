@@ -19,8 +19,7 @@ class Solution:
         
         for i in range(n):
             for j in range(i, n):
-                if (i,j) not in solved and solve(i,j) == 1:
-                    solved.add((i,j))
+                if solve(i,j) == 1:
                     ans += 1
         
         return ans
