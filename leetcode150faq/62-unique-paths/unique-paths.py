@@ -1,17 +1,10 @@
-class Solution(object):
-    def uniquePaths(self, m, n):
-        """
-        :type m: int
-        :type n: int
-        :rtype: int
-        """
-        tmp = [[-1 for _ in range(n)] for _ in range(m)]
-        for i in range(m):
-            for j in range(n):
-                if i == 0 or j == 0:
-                    tmp[i][j] = 1
-                else:
-                    tmp[i][j] = tmp[i-1][j] + tmp[i][j-1]
-        
-        return tmp[m-1][n-1]
-        
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        t = [[-1 for _ in range(n)] for _ in range(m)]
+        def solve(r, c):
+            if r == m-1 and c == n-1: return 1
+            if r >= m or c >= n: return 0
+            if t[r][c] != -1: return t[r][c]
+            t[r][c] = solve(r+1, c) + solve(r, c+1)
+            return t[r][c]
+        return solve(0, 0)
