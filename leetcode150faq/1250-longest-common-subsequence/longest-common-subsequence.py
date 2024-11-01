@@ -1,16 +1,16 @@
-class Solution(object):
-    def longestCommonSubsequence(self, text1, text2):
-        """
-        :type text1: str
-        :type text2: str
-        :rtype: int
-        """
-        tmp = [[0 for _ in range(len(text2)+1)] for _ in range(len(text1)+1)]
-        for i in range(1, len(text1) + 1):
-            for j in range(1, len(text2) + 1):
-                if text1[i-1] == text2[j-1]:
-                    tmp[i][j] = 1 + tmp[i-1][j-1]
-                else:
-                    tmp[i][j] = max(tmp[i-1][j], tmp[i][j-1])
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        memo = [[-1 for _ in range(1001)] for _ in range(1001)]
+        def solve(s1, s2, cur_len):
+            if s1 >= len(text1) or s2 >= len(text2): return 0
+            if memo[s1][s2] != -1: return memo[s1][s2]
+            if text1[s1] == text2[s2]:
+                count = 1 + solve(s1+1, s2+1, cur_len+1)
+            else:
+                count = max(solve(s1+1, s2, cur_len), solve(s1, s2+1, cur_len))
+            memo[s1][s2] = count
+            return memo[s1][s2]
+        return solve(0,0,0)
+
+
         
-        return tmp[len(text1)][len(text2)]
