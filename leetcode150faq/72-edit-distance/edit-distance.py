@@ -13,7 +13,7 @@ class Solution:
                 ans_i = 1 + solve(i, j+1)
                 ans_d = 1 + solve(i+1, j)
                 ans_r = 1 + solve(i+1, j+1)
-                ans = min(ans, ans_i, ans_d, ans_r)
+                ans = min(ans_i, ans_d, ans_r)
             memo[(i,j)] = ans
             return memo[(i,j)]
         return solve(0,0)
