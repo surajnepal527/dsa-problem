@@ -8,8 +8,9 @@ class Solution:
             max_len = 1
             if (r,c) in memo:return memo[(r,c)]
             for nr, nc in dr:
-                if r+nr >= 0 and c + nc >= 0 and r + nr < row and c + nc < col and matrix[r+nr][c+nc] > matrix[r][c]:
-                    max_len = max(max_len, 1 + solve(r+nr, c+nc))
+                new_r , new_c = r+nr, c+nc
+                if 0<= new_r < row and 0<= new_c < col and matrix[r+nr][c+nc] > matrix[r][c]:
+                    max_len = max(max_len, 1 + solve(new_r, new_c))
             memo[(r,c)] =  max_len
             return memo[(r,c)]
         
