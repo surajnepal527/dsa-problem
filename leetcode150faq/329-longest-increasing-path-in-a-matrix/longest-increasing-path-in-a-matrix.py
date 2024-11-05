@@ -14,9 +14,9 @@ class Solution:
             memo[(r,c)] =  max_len
             return memo[(r,c)]
         
-        for i in range(row):
-            for j in range(col):
-                t_max_len = max(t_max_len, solve(i, j))
+        for r in range(row):
+            for c in range(col):
+                t_max_len = max(t_max_len, solve(r, c))
         return t_max_len
 
             
