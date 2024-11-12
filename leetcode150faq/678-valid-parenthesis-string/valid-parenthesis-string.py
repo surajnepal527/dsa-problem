@@ -3,8 +3,7 @@ class Solution:
         dp = {}
         def solve(i, oc):
             if oc < 0: return False
-            if i >= len(s) and oc != 0: return False
-            if i >= len(s) and oc == 0: return True
+            if i >= len(s): return oc == 0
             if (i,oc) in dp: return dp[(i,oc)]
             if s[i] == "*":
                 take_open = solve(i+1, oc+1)
