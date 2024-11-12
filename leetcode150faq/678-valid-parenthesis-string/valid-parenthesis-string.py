@@ -5,18 +5,15 @@ class Solution:
             if oc < 0: return False
             if i >= len(s): return oc == 0
             if (i,oc) in dp: return dp[(i,oc)]
+            isValid = False
             if s[i] == "*":
-                take_open = solve(i+1, oc+1)
-                take_close = solve(i+1, oc-1)
-                take_empty = solve(i+1, oc)
-                dp[(i, oc)] =  take_open or take_close or take_empty
-                return dp[(i, oc)]
+                isValid = solve(i+1, oc+1) or solve(i+1, oc-1) or solve(i+1, oc) 
             elif s[i] == "(":
-                dp[(i, oc)] =  solve(i+1, oc+1)
-                return dp[(i, oc)]
+                isValid =  solve(i+1, oc+1)
             else:
-                dp[(i, oc)] = solve(i+1, oc-1)
-                return dp[(i,oc)]
+                isValid = solve(i+1, oc-1)
+            dp[(i,oc)] = isValid
+            return dp[(i,oc)] 
         return solve(0,0)
 
         
