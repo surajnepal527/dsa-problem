@@ -1,20 +1,22 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        dp = {}
-        def solve(i, oc):
-            if oc < 0: return False
-            if i >= len(s): return oc == 0
-            if (i,oc) in dp: return dp[(i,oc)]
-            isValid = False
-            if s[i] == "*":
-                isValid = solve(i+1, oc+1) or solve(i+1, oc-1) or solve(i+1, oc) 
-            elif s[i] == "(":
-                isValid =  solve(i+1, oc+1)
-            else:
-                isValid = solve(i+1, oc-1)
-            dp[(i,oc)] = isValid
-            return dp[(i,oc)] 
-        return solve(0,0)
-
-        
+        n = len(s)
+        t = [[False for _ in range(n+1)] for _ in range(n+1)]
+        t[n][0] = True
+        for i in range(n-1, -1, -1):
+            for open in range(n+1):
+                isValid = False
+                if s[i] == "*":
+                    isValid = t[i+1][open]
+                    if open > 0:
+                        isValid =  isValid or t[i+1][open-1]
+                    if open < n:
+                        isValid = isValid or t[i+1][open+1]
+                elif s[i] == "(":
+                    if open < n:
+                        isValid = t[i+1][open+1]
+                elif open > 0:
+                    isValid = t[i+1][open-1]
+                t[i][open] = isValid
+        return t[0][0]
         
