@@ -1,20 +1,21 @@
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        result = []
         i = 0
         while i < len(intervals):
-            #cas1 one
-            if intervals[i][1] < newInterval[0]:
-                i +=1
+            if intervals[i][1] < newInterval[0]: 
+                result.append(intervals[i])
+                i += 1
             elif intervals[i][0] > newInterval[1]:
-                intervals.insert(i,newInterval)
-                return intervals
+                break
             else:
                 newInterval[0] = min(intervals[i][0], newInterval[0])
                 newInterval[1] = max(intervals[i][1], newInterval[1])
-                del intervals[i]
+                i += 1
         
-        intervals.append(newInterval)
-        return intervals
-
-
+        result.append(newInterval)
+        while i < len(intervals):
+            result.append(intervals[i])
+            i+= 1
+        return result
         
