@@ -15,8 +15,7 @@ class Solution:
                 newInterval[1] = max(intervals[i][1], newInterval[1])
                 del intervals[i]
         
-        if not inserted:
-            intervals.append(newInterval)
+        intervals.append(newInterval)
         return intervals
 
 
