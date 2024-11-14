@@ -1,26 +1,20 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        n = len(s)
-        openstk = []
-        askstk = []
+        #trickt solution where we maintain count of open and close bracket for left to right and right to left
+        open_count, close_count, n  = 0, 0, len(s)
         for i in range(n):
-            if s[i] == "(":
-                openstk.append(i)
-            elif s[i] == "*":
-                askstk.append(i)
+            if s[i] == "(" or s[i] == "*":
+                open_count += 1
             else:
-                if openstk:
-                    openstk.pop()
-                elif askstk:
-                    askstk.pop()
-                else:
-                    return False
-        
-        while openstk and askstk:
-            if openstk[-1] > askstk[-1]: return False
-            openstk.pop()
-            askstk.pop()
-        return True if not openstk else False
-                
-
+                open_count -= 1
+            if open_count < 0:
+                return False
+        for i in range(n-1, -1, -1):
+            if s[i] == ")" or s[i] == "*":
+                close_count += 1
+            else:
+                close_count -= 1
+            if close_count < 0:
+                return False
+        return True
         
