@@ -14,8 +14,7 @@ class Solution:
                 i += 1
         
         result.append(newInterval)
-        while i < len(intervals):
-            result.append(intervals[i])
-            i+= 1
+        result.extend(intervals[i:])
+   
         return result
         
