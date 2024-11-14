@@ -1,7 +1,5 @@
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        
-        inserted = False
         i = 0
         while i < len(intervals):
             #cas1 one
