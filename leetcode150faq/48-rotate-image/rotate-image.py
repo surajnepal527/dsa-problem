@@ -1,31 +1,17 @@
-class Solution(object):
-    def rotate(self, matrix):
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
         """
-        :type matrix: List[List[int]]
-        :rtype: None Do not return anything, modify matrix in-place instead.
+        Do not return anything, modify matrix in-place instead.
         """
-        #90 degree roation of a matrix is nothing but combinatation of Transpose and reverse of each row
-        #Tanspose given matrix
-        for row in range(len(matrix)):
-            for col in range(row+1, len(matrix[0])):
-                self.swap(matrix, row, col)
+        row_len, col_len = len(matrix), len(matrix[0])
+        for r in range(row_len):
+            for c in range(r+1, col_len):
+                matrix[r][c] , matrix[c][r] = matrix[c][r], matrix[r][c]
         
-        # now I need to reverse each row
-        for row in range(len(matrix)):
-            self.reverse(matrix, row)
+        for r in range(row_len):
+            start, end = 0 , col_len-1
+            while start< end:
+                matrix[r][start], matrix[r][end] = matrix[r][end], matrix[r][start]
+                start += 1
+                end -= 1
         
-
-    def reverse(self, matrix, row):
-        startCol = 0
-        endCol = len(matrix) - 1
-        while startCol < endCol:
-            tmp = matrix[row][startCol]
-            matrix[row][startCol] = matrix[row][endCol]
-            matrix[row][endCol] = tmp
-            startCol += 1
-            endCol -= 1
-
-    def swap(self, matrix, row, col):
-        tmp = matrix[row][col]
-        matrix[row][col] = matrix[col][row]
-        matrix[col][row] = tmp
