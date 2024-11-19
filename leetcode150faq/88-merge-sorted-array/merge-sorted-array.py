@@ -7,10 +7,8 @@ class Solution(object):
         :type n: int
         :rtype: None Do not return anything, modify nums1 in-place instead.
         """
-        i = m - 1
-        j = n - 1
-        k = len(nums1) - 1
-        for k in range(len(nums1)-1, -1, -1):
+        k, i , j = len(nums1)-1, m-1, n-1
+        while k >=0 and j >= 0:
             if i < 0:
                 nums1[k] = nums2[j]
                 j -= 1
@@ -23,4 +21,5 @@ class Solution(object):
             else:
                 nums1[k] = nums2[j]
                 j -= 1
+            k -= 1
         
