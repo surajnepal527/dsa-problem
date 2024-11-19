@@ -8,7 +8,7 @@ class Solution(object):
         :rtype: None Do not return anything, modify nums1 in-place instead.
         """
         k, i , j = len(nums1)-1, m-1, n-1
-        while k >=0 and j >= 0:
+        while k >=0:
             if i < 0:
                 nums1[k] = nums2[j]
                 j -= 1
