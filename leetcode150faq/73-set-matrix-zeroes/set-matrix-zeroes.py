@@ -3,41 +3,38 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        first_row_zero = False
-        first_col_zero = False
-        row_len = len(matrix)
-        col_len = len(matrix[0])
-        #first row check
+        row_len , col_len = len(matrix), len(matrix[0])
+        isFirstRowZero = False
+        isFirstColZero = False
+        #check if first row/col have zeros:
         for col in range(col_len):
             if matrix[0][col] == 0:
-                first_row_zero = True
+                isFirstRowZero = True
                 break
-        #first col check
         for row in range(row_len):
             if matrix[row][0] == 0:
-                first_col_zero = True
-        #Iterate over the entire matrix and set first row and col to zer
-        #as per inter content
-        for row in range(1, row_len):
+                isFirstColZero = True
+                break
+        #use First Row and col to store value of corresponding row and col if zero exist
+        for row in range(1,row_len):
             for col in range(1, col_len):
                 if matrix[row][col] == 0:
-                    matrix[0][col] = 0
-                    matrix[row][0] = 0
-        
-
+                    matrix[0][col], matrix[row][0] = 0, 0
+        #set entire row and col to zero if first row or first col is zero
         for row in range(1, row_len):
             for col in range(1, col_len):
-                if matrix[row][0] == 0 or matrix[0][col] == 0:
+                if matrix[0][col] == 0 or matrix[row][0] == 0:
                     matrix[row][col] = 0
-        
-        if first_row_zero:
+        #set first row and col to zero
+        if isFirstRowZero:
             for col in range(col_len):
                 matrix[0][col] = 0
-        if first_col_zero:
+        if isFirstColZero:
             for row in range(row_len):
                 matrix[row][0] = 0
+        
+        
 
-            
+        
 
 
-    
