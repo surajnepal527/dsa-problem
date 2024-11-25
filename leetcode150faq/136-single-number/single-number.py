@@ -1,12 +1,7 @@
-class Solution(object):
-    def singleNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        return self.solve(nums, 0)
-    
-    def solve(self, nums, idx):
-        if idx == len(nums) -1:
-            return nums[idx]
-        return nums[idx] ^ self.solve(nums, idx+1)
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        result = 0
+        for num in nums:
+            result = result ^ num
+        return result
+        
