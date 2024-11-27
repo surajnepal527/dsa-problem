@@ -1,14 +1,7 @@
-class Solution(object):
-    def missingNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        n = len(nums)
-        total_sum = (n  * (n + 1)) / 2
-        for i in range (n):
-            total_sum -= nums[i]
-        
-        return total_sum
-
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        res = len(nums)
+        for idx, num in enumerate(nums):
+            res ^= idx^num
+        return res
         
