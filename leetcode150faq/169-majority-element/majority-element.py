@@ -1,7 +1,12 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        nummap = defaultdict(int)
+        candidate, count  = 0,0
         for num in nums:
-            nummap[num] = nummap.get(num,0)+1
-            if nummap[num] > len(nums)//2: return num
+            if count == 0 or candidate == num:
+                count += 1
+                candidate = num
+            else:
+                count -= 1
+        return candidate
+
         
