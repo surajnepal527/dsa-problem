@@ -6,5 +6,5 @@ class Solution:
                 nums[i] = num
                 i += 1
         return i
-        
+
         
