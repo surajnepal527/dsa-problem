@@ -1,23 +1,15 @@
-class Solution(object):
-    def minFlips(self, a, b, c):
-        """
-        :type a: int
-        :type b: int
-        :type c: int
-        :rtype: int
-        """
-        tmp = (a|b)^c
-        res = (a&b)&tmp
-        ans = 0
-        while tmp!=0:
-            if tmp&1 == 1:
-                ans += 1
-            tmp = tmp>>1
+class Solution:
+    def minFlips(self, a: int, b: int, c: int) -> int:
+        count = 0
+        for i in range(32):
+            if (a & 1<<i) | (b & 1<< i) != (c & 1<<i):
+                if (c & 1<<i):
+                    count += 1
+                else:
+                    if (a & 1<<i):
+                         count += 1
+                    if (b & 1<<i):
+                        count += 1
         
-        while res != 0:
-            if res&1 == 1:
-                ans += 1
-            res = res>>1
+        return count
         
-        return ans
-
