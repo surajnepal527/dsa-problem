@@ -1,18 +1,12 @@
-class Solution(object):
-    def maxArea(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
-        left = 0
-        right = len(height) - 1
-        max_area = (len(height) - 1) * min(height[left], height[right])
-        while left < right:
-            if height[left] < height[right]:
-                left += 1
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        s, e, = 0 , len(height)-1
+        cur_area, max_area = 0,0
+        while s < e:
+            cur_area = min(height[s], height[e]) * (e-s)
+            max_area = max(cur_area, max_area)
+            if height[s] < height[e]:
+                s += 1
             else:
-                right -= 1
-            max_area = max(max_area, (right-left)* min(height[left] , height[right]))
+                e -= 1
         return max_area
-             
-
