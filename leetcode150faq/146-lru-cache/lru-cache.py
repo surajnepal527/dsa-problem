@@ -1,68 +1,57 @@
 class Node:
-    def __init__(self, key=0, prev= None, next = None,val = 0):
+    def __init__(self, key=0, val=0,next=None, prev=None):
+        self.key=key
+        self.val=val
         self.prev = prev
         self.next = next
-        self.key = key
-        self.val = val
 
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.hm = {}
-        self.capacity = capacity
-        self.size = 0
-        self.head = Node()
-        self.tail = Node()
+        self.cap = capacity
+        self.cache = {}
+        self.head , self.tail = Node(), Node()
         self.head.next = self.tail
         self.tail.prev = self.head
 
-        
-
     def get(self, key: int) -> int:
-        if key in self.hm:
-            node = self.hm[key]
-            self._moveToHead(node)
+        if key in self.cache:
+            node = self.cache[key]
+            self.moveNodeToHead(node)
             return node.val
         else:
             return -1
 
-
     def put(self, key: int, value: int) -> None:
-        if key in self.hm:
-            node = self.hm[key]
+        if key in self.cache:
+            node = self.cache[key]
             node.val = value
-            self._moveToHead(node)
+            self.moveNodeToHead(node)
         else:
-            if self.size == self.capacity:
-                self._removeLRUNode()
-            new_node = Node(key=key, val=value)
-            self.hm[key] = new_node
-            self._addNodeToHead(new_node)
-            self.size += 1 
+            if len(self.cache) == self.cap:
+                self.removeLRUNode()
+            newNode = Node(key=key, val=value)
+            self.cache[key] = newNode
+            self.addNodeToHead(newNode)
 
-    def _moveToHead(self, node):
-        self._removeNode(node)
-        self._addNodeToHead(node)
-        
-    def _removeNode(self, node):
-        node_prev = node.prev
-        node_next = node.next
-        node.prev.next = node_next
-        node.next.prev = node_prev
     
-    def _addNodeToHead(self, node):
-        node.next = self.head.next
-        node.prev = self.head
+    def removeNode(self, node):
+        node_next, node_prev = node.next, node.prev
+        node.prev.next, node.next.prev = node_next, node_prev
+
+    def removeLRUNode(self):
+        lru = self.tail.prev
+        self.removeNode(lru)
+        del self.cache[lru.key]
+
+    def addNodeToHead(self, node):
+        node.prev, node.next = self.head, self.head.next
         self.head.next.prev = node
-        self.head.next = node
+        self.head.next = node    
 
-    def _removeLRUNode(self):
-        lru_node = self.tail.prev
-        self._removeNode(lru_node)
-        del self.hm[lru_node.key]
-        self.size -= 1
-
-    
+    def moveNodeToHead(self, node):
+        self.removeNode(node)
+        self.addNodeToHead(node)
         
 
 
