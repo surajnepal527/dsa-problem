@@ -1,11 +1,11 @@
 from collections import deque
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        rows, cols, res, que = len(grid), len(grid[0]), 0, deque()
+        rows, cols, res = len(grid), len(grid[0]), 0
         for r in range(rows):
             for c in range(cols):
                 if grid[r][c] == "1":
-                    que.append((r,c))
+                    que = deque([(r,c)])
                     res += 1
                     while que:
                         qr, qc = que.popleft()
