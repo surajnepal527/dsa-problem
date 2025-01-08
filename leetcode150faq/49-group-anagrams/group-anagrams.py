@@ -1,11 +1,19 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        res = defaultdict(list)
+        anagramMap = {}
+        res = []
         for s in strs:
-            count = [0] * 26
+            freq_array = [0]*26
             for ch in s:
-                count[ord(ch) - 97] += 1
-            res[tuple(count)].append(s)
-        return res.values()
+                idx = ord(ch) - ord('a')
+                freq_array[idx] += 1
+            freq_tuple = tuple(freq_array)
+            if freq_tuple in anagramMap:
+                anagramMap[freq_tuple].append(s)
+            else:
+                anagramMap[freq_tuple] = [s]
+        return list(anagramMap.values())
+
+
 
         
