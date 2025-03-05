@@ -2,21 +2,20 @@ class MedianFinder:
 
     def __init__(self):
         self.array = []
-        self.size = 0
         
 
     def addNum(self, num: int) -> None:
         self.array.append(num)
-        self.size += 1
 
     def findMedian(self) -> float:
-        if self.size == 0:
+        size = len(self.array)
+        if size == 0:
             return 0
         self.array.sort()
-        if self.size%2 == 0:
-            mid = self.size//2
+        if size%2 == 0:
+            mid = size//2
             return (self.array[mid] + self.array[mid-1])/2.0
-        return self.array[self.size//2]
+        return self.array[size//2]
         
 
 
