@@ -1,9 +1,11 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        #O(n2) solution
+        nums_map = {}
         for i in range(len(nums)):
-            for j in range(i+1, len(nums),1):
-                if nums[i] + nums[j] == target:
-                    return [i,j]
+            comp = target - nums[i]
+            if comp in nums_map:
+                return [nums_map[comp],i]
+            elif nums[i] not in nums_map:
+                nums_map[nums[i]] = i
         return []
         
