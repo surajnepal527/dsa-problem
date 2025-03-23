@@ -1,22 +1,19 @@
-from collections import defaultdict
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        if not s: return 0
-        count_map = defaultdict(int)
-        count_map[s[0]] += 1
-        max_len, start, end = 1, 0, 1
-        while end < len(s):
-            ch = s[end]
-            count_map[ch] += 1
-            if count_map[ch] > 1:
-                max_len = max(max_len , end-start)
-                while count_map[ch] > 1:
-                    count_map[s[start]] -= 1
-                    start += 1
-            else:
-                max_len = max(max_len , end-start+1)
-            end += 1
-        return max_len
+        #approach was good but it seems more complicated.
+        #lets just try to set and so the same 
+        #as soon as we see cur char already exist in set before we even insert it
+        #we try to remove all elmement from let till we remove the curent element
+        #then we add new char and check for size
+        char_set = set()
+        left, res = 0, 0
+        for right in range(len(s)):
+            while s[right] in char_set:
+                char_set.remove(s[left])
+                left += 1
+            char_set.add(s[right])
+            res = max(res, len(char_set))
+        return res
 
 
         
