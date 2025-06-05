@@ -1,14 +1,11 @@
 from collections import defaultdict
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anagramMap = defaultdict(list)
+        ana_map = defaultdict(list)
         for s in strs:
-            freq_array = [0]*26
+            freq_map = [0]*26
             for ch in s:
-                freq_array[ord(ch) - ord('a')] += 1
-            anagramMap[tuple(freq_array)].append(s)
-        return list(anagramMap.values())
-
-
-
+                freq_map[ord(ch)-ord('a')] += 1
+            ana_map[tuple(freq_map)].append(s)
+        return list(ana_map.values())
         
