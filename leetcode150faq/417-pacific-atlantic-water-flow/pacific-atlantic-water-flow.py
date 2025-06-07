@@ -1,47 +1,38 @@
-from collections import deque
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        rows , cols = len(heights), len(heights[0])
-        visited_p = set()
-        visited_a = set()
-        row_col_list = [(1,0),(-1,0),(0,1),(0, -1)]
-        set_p = set()
-        set_a = set()
-        que_p = deque()
-        que_a = deque()
-        for r in range(rows):
-            for c in range(cols):
-                if r == 0 or c == 0:
-                    set_p.add((r,c))
-                    que_p.append((r, c, heights[r][c]))
-                    visited_p.add((r,c))
-                if r == rows - 1 or c == cols -1:
-                    set_a.add((r,c))
-                    que_a.append((r, c, heights[r][c]))
-                    visited_a.add((r,c))
-        while que_p:
-            rqp, cqp, htqp = que_p.popleft()
-            for rl, cl in row_col_list:
-                rn = rqp + rl
-                cn = cqp + cl
-                if 0 <= rn < rows and 0 <= cn < cols and heights[rn][cn] >= htqp and (rn, cn) not in visited_p:
-                    set_p.add((rn, cn))
-                    que_p.append((rn, cn , heights[rn][cn]))
-                    visited_p.add((rn, cn))
-        while que_a:
-            rqa, cqa, htqa = que_a.popleft()
-            for rl, cl in row_col_list:
-                rn = rqa + rl
-                cn = cqa + cl
-                if 0 <= rn < rows and 0 <= cn < cols and heights[rn][cn] >= htqa and (rn, cn) not in visited_a:
-                    set_a.add((rn, cn))
-                    que_a.append((rn, cn, heights[rn][cn]))
-                    visited_a.add((rn ,cn))
+        #we will use dfs
+        #first_row/last_row -> pac/altan
+        #frist_col/last_col -> pac/alan
+        #find the matching
+        row_len , col_len = len(heights), len(heights[0])
+        pac, atl = set(), set()
+        drs = [(1,0),(0,1),(-1,0),(0,-1)]
+
+        def dfs(row, col, visited, prev_height):
+            if (row, col) in visited or row < 0 or row >= row_len or col < 0 or col >= col_len or heights[row][col] < prev_height:
+                return
+            visited.add((row, col))
+            for dr, dc in drs:
+                dfs(row+dr, col+dc, visited, heights[row][col])
+
+        #work on row
+        for c in range(col_len):
+            dfs(0,c,pac,heights[0][c])
+            dfs(row_len-1, c , atl, heights[row_len-1][c])
+        
+        #work on col
+        for r in range(row_len):
+            dfs(r,0,pac,heights[r][0])
+            dfs(r,col_len-1, atl, heights[r][col_len-1])
+
         res = []
-        for item in set_a:
-            if item in set_p:
-                res.append(list(item))
+        for r in range(row_len):
+            for c in range(col_len):
+                if (r,c) in pac and (r,c) in atl:
+                    res.append((r,c))
         return res
 
-                
+
+        
+
         
