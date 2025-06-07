@@ -1,47 +1,35 @@
-from collections import deque
 class Solution:
     def solve(self, board: List[List[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
-        rows, cols = len(board), len(board[0])
-        if rows < 3 and cols < 3:
-            return
-        que = deque()
-        row_col_list = [(1,0),(-1,0),(0,1),(0,-1)]
-        #just iterate over boundaries
-        def mark_boundries(r, c):
-            board[r][c] = "NS"
-            que.append((r,c))
+        #idea is to think in reverse way 
+        #first mark all the cell on board with O ->NS (T) on it and run dfs for bfs on it
+        #mark rest o other to x 
+        #rever back T or NS to O
+        row_len , col_len = len(board), len(board[0])
+        drs = [(1,0),(0,1),(-1,0),(0,-1)]
+        visited = set()
+        def dfs(r, c):
+            if r< 0 or r >= row_len or c < 0 or c >= col_len or (r,c) in visited or board[r][c] != "O":
+                return
+            board[r][c]= "T"
+            visited.add((r,c))
+            for dr, dc in drs:
+                dfs(r+dr, c+dc)
 
-        #first row and last row
-        for c in range(cols):
-            for r in [0, rows-1]:
-                if board[r][c] == "O":
-                    mark_boundries(r,c)
+        for r in range(row_len):
+            for c in range(col_len):
+                if board[r][c] == "O" and (r in [0, row_len-1] or c in [0 , col_len-1]):
+                    dfs(r, c)
 
-        #first col and last col
-        for r in range(rows):
-            for c in [0, cols-1]:
-                if board[r][c] == "O":
-                    mark_boundries(r,c)
-
-        while que:
-            rq, cq = que.popleft()
-            for rl, cl in row_col_list:
-                rn, cn = rq+rl, cq+cl
-                if 0<= rn < rows and 0<= cn < cols and board[rn][cn] == "O":
-                    board[rn][cn] = "NS"
-                    que.append((rn, cn))
-        
-        for r in range(rows):
-            for c in range(cols):
-                if board[r][c] == "O":
+        for r in range(row_len):
+            for c in range(col_len):
+                if board[r][c] != "T":
                     board[r][c] = "X"
-                elif board[r][c] == "NS":
+        
+        for r in range(row_len):
+            for c in range(col_len):
+                if board[r][c] == "T":
                     board[r][c] = "O"
-        
                 
-
-        
-        
