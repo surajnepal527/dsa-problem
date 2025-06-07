@@ -1,27 +1,17 @@
-from collections import deque
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        drs = [(1,0),(0,1),(-1,0),(0,-1)]
         row_len, col_len = len(grid), len(grid[0])
+        drs = [(1,0),(0,1),(-1,0),(0,-1)]
         res = 0
+        def dfs(row:int, col:int):
+            if row < 0 or col < 0 or row >= row_len or col >= col_len or grid[row][col] != "1":
+                return
+            grid[row][col] = "0"
+            for dr,dc in drs:
+                dfs(row+dr, col+dc) 
         for r in range(row_len):
             for c in range(col_len):
                 if grid[r][c] == "1":
-                    grid[r][c] = "0"
                     res += 1
-                    queue = deque([(r,c)])
-                    while queue:
-                        qr, qc = queue.popleft()
-                        for dr, dc in drs:
-                            nr, nc = qr+dr, qc+dc
-                            #main part of the code
-                            #boundary conditin and #is there land if not ignore
-                            if nr < 0 or nr >= row_len or nc<0 or nc>= col_len or grid[nr][nc] != "1":
-                                continue
-                            grid[nr][nc] = "0"
-                            queue.append((nr, nc))
-        
+                    dfs(r, c)
         return res
-
-
-        
