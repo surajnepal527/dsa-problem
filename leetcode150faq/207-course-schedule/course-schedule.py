@@ -1,27 +1,27 @@
-from collections import defaultdict
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj = defaultdict(list)
+        #graph problem
+        #need to create adjacency list
+        preMap = {i:[] for i in range(numCourses)}
         for crs, pre in prerequisites:
-            adj[crs].append(pre)
-        visited = set()
-        cur_path = set()
+            preMap[crs].append(pre)
+        visitedSet = set()
+        cycle = set()
 
-        def dfs(cur_crs, cur_path):
-            if cur_crs in cur_path:
-                return False
-            if cur_crs in visited:
-                return True
-            cur_path.add(cur_crs)
-            for pre in adj[cur_crs]:
-                if not dfs(pre, cur_path) : return False
-            cur_path.remove(cur_crs)
-            visited.add(cur_crs)
+        def dfs(crs):
+            if crs in visitedSet: return True
+            #if preMap[crs] == []: return True
+            if crs in cycle: return False
+            cycle.add(crs)
+            for pre in preMap[crs]:
+                if not dfs(pre): return False
+            visitedSet.add(crs)
+            cycle.remove(crs)
+            #preMap[crs] = []
             return True
-        
+            
         for i in range(numCourses):
-            if i not in visited:
-                if not dfs(i, cur_path) : return False
+            if not dfs(i): return False
         return True
 
         
