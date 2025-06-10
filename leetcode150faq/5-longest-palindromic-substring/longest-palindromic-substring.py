@@ -1,26 +1,24 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        memo = [[-1 for _ in range(1001)] for _ in range(1001)]
-        s_idx = -1
-        max_len = -1
-
-        def solve(i, j):
-            if i >= j:
-                return 1
-            if memo[i][j] != -1: return memo[i][j]
-            if s[i] == s[j]:
-                memo[i][j] =  solve(i+1, j-1)
-                return memo[i][j]
-            else:
-                memo[i][j] = 0
-                return memo[i][j]
-        
+        res, resLen = "",0
         for i in range(len(s)):
-            for j in range(len(s)):
-                    if solve(i,j) == 1:
-                        if j-i+1 > max_len:
-                            max_len = j-i+1
-                            s_idx = i
-        return s[s_idx:s_idx+max_len]
-                        
+            #odd
+            l, r = i, i
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if (r-l+1) > resLen:
+                    resLen = r-l+1
+                    res = s[l:r+1]
+                l -= 1
+                r += 1
+            #envee
+            l, r = i , i+1
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if (r-l+1) > resLen:
+                    res = s[l:r+1]
+                    resLen = r-l+1
+                l -= 1
+                r += 1
+        return res
 
+
+        
