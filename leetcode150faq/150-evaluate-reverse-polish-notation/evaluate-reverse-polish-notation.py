@@ -1,31 +1,23 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
-        add ="+"
-        sub = "-"
-        mul = "*"
-        div = "/"
-        op_set = set()
-        op_set.add(add)
-        op_set.add(sub)
-        op_set.add(mul)
-        op_set.add(div)
-        stk = []
+        stack = []
+        valid_char = {"+","-","/","*"}
         for ch in tokens:
-            if ch == "+":
-                stk.append(stk.pop() + stk.pop())
-            elif ch == "-":
-                a,b = stk.pop(), stk.pop()
-                stk.append(b-a)
-            elif ch == "*":
-                stk.append(stk.pop() * stk.pop())
-            elif ch == "/":
-                a,b = stk.pop(), stk.pop()
-                stk.append(int(b/a))
+            if ch in valid_char:
+                a, b = stack.pop(), stack.pop()
+                if ch == "+":
+                    stack.append(a+b)
+                elif ch == "*":
+                    stack.append(a*b)
+                elif ch == "/":
+                    stack.append(int(b/a))
+                else:
+                    stack.append(b-a)
             else:
-                stk.append(int(ch))
+                stack.append(int(ch))
+        return stack[-1]
                 
-        return stk[-1]        
-
-
-
+                
+                
+ 
         
