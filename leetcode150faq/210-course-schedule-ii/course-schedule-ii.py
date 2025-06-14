@@ -1,29 +1,23 @@
-from collections import defaultdict
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        adj = defaultdict(list)
-        for crs, pre in prerequisites:
-            adj[crs].append(pre)
-        visited = set()
-        cur_path = set()
-        stack, res = [], []
+        pre_req_map = { c:[] for c in range(numCourses)}
+        for crs, req in prerequisites:
+            pre_req_map[crs].append(req)
+        visited, cycle = set(), set()
+        output = []
         def dfs(crs):
-            if crs in cur_path:
-                return False
-            if crs in visited:
-                return  True
-            cur_path.add(crs)
-            for pre in adj[crs]:
-                if not dfs(pre): return False
-            stack.append(crs)
-            cur_path.remove(crs)
+            if crs in cycle: return False
+            if crs in visited: return True
+            cycle.add(crs)
             visited.add(crs)
+            for nei in pre_req_map[crs]:
+                if not dfs(nei): return False
+            output.append(crs)
+            cycle.remove(crs)
             return True
 
-        for i in range(numCourses):
-            if i not in visited:
-                if not dfs(i):return []
-        
-        return stack
-
+        for c in range(numCourses):
+            if c not in visited:
+                if not dfs(c): return []
+        return output
         
