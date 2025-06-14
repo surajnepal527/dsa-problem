@@ -1,27 +1,24 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        #graph problem
-        #need to create adjacency list
-        preMap = {i:[] for i in range(numCourses)}
+        pre_req_map = {c:[] for c in range(numCourses)}
         for crs, pre in prerequisites:
-            preMap[crs].append(pre)
-        visitedSet = set()
-        cycle = set()
-
+            pre_req_map[crs].append(pre)
+        
+        visited, cycle = set(), set()
         def dfs(crs):
-            if crs in visitedSet: return True
-            #if preMap[crs] == []: return True
             if crs in cycle: return False
+            if crs in visited: return True
             cycle.add(crs)
-            for pre in preMap[crs]:
-                if not dfs(pre): return False
-            visitedSet.add(crs)
+            visited.add(crs)
+            for nei in pre_req_map[crs]:
+                if not dfs(nei): return False
             cycle.remove(crs)
-            #preMap[crs] = []
             return True
-            
-        for i in range(numCourses):
-            if not dfs(i): return False
-        return True
 
+
+        for crs in range(numCourses):
+            if crs not in visited:
+                if not dfs(crs): return False
+        
+        return True
         
